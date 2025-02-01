@@ -31,7 +31,7 @@ void	set_minishell_path(t_arg *arg, char *path)
 		if (tmp1[0] == '.' && tmp1[1] == '/')
 			tmp3 = modified_strtrim(tmp1, ".");
 		else
-			tmp3 = ft_strjoin("/", tmp1);
+			tmp3 = modified_strjoin(ft_strdup("/"), tmp1, 0);
 		arg->minishell_path = modified_strjoin(tmp2, tmp3, 0);
 	}
 }

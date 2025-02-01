@@ -154,7 +154,13 @@ void	free_line(t_line *line);
 char	*modified_strtrim(char *s1, char const *set);
 char	*modified_strdup(char *s1);
 char	*modified_substr(char *s, int start, int len);
-char	*modified_strjoin(char *s1, char *s2, int free);
+/*
+ * Joins s1 and s2 into a newly allocated string. Treats NULL as an empty
+ * string (no crash). If flag == 1, frees s1; if flag == 2, frees s2;
+ * if flag == 0, frees both. Caller must ensure pointers passed for freeing
+ * are heap-allocated (malloc/calloc/strdup).
+ */
+char	*modified_strjoin(char *s1, char *s2, int flag);
 
 // Environment Variables
 void	set_env(t_env *env_head, char *key, char *value);

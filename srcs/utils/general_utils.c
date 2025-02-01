@@ -5,18 +5,32 @@ char	*modified_strjoin(char *s1, char *s2, int flag)
 	char	*str;
 	int		i;
 	int		k;
+	int		len1;
+	int		len2;
 
-	str = ft_malloc(sizeof (char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	i = -1;
-	while (s1 && s1[++i])
-		str[i] = s1[i];
-	k = 0;
-	while (s2 && s2[k])
+	len1 = s1 ? ft_strlen(s1) : 0;
+	len2 = s2 ? ft_strlen(s2) : 0;
+	str = ft_malloc(sizeof (char) * (len1 + len2 + 1));
+	i = 0;
+	if (s1)
 	{
-		str[i + k] = s2[k];
-		k++;
+		while (s1[i])
+		{
+			str[i] = s1[i];
+			i++;
+		}
+	}
+	k = 0;
+	if (s2)
+	{
+		while (s2[k])
+		{
+			str[i + k] = s2[k];
+			k++;
+		}
 	}
 	str[i + k] = 0;
+	/* free according to flag (free(NULL) is safe) */
 	if (flag == 1)
 		free(s1);
 	else if (flag == 2)
