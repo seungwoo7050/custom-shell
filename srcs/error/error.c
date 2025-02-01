@@ -1,9 +1,13 @@
 #include "minishell.h"
 
+static void put_err(const char* msg) {
+    ft_putstr_fd(msg, 2);
+}
+
 void	error_quote(t_arg *arg)
 {
-	write (2, "minishell: syntax error either unclosed quote ", 46);
-	write (2, "or parenthesis found\n", 21);
+	put_err ("minishell: syntax error either unclosed quote ");
+	put_err ("or parenthesis found\n");
 	arg->error->code = EXIT_STATUS_SYNTAX_ERROR;
 	if (arg->is_subshell)
 		exit(arg->error->code);
@@ -15,19 +19,19 @@ void	error_syntax(t_arg *arg)
 		exit(arg->error->code);
 	if (arg->error->token[0] == '$')
 	{
-		write(2, "minishell: ", 11);
-		write(2, arg->error->token, ft_strlen(arg->error->token));
-		write(2, ": ambiguous redirect\n", 21);
+		put_err("minishell: ");
+		put_err(arg->error->token);
+		put_err(": ambiguous redirect\n");
 	}
 	else if (arg->error->token[0] == '\'')
-		write(2, "minishell: No such file or directory\n", 38);
+		put_err("minishell: No such file or directory\n");
 	else if (arg->error->token[0] == '\0')
-		write(2, "minishell: ambiguous redirect\n", 31);
+		put_err("minishell: ambiguous redirect\n");
 	else
 	{
-		write(2, "minishell: syntax error near unexpected token `", 47);
-		write(2, arg->error->token, ft_strlen(arg->error->token));
-		write(2, "\'\n", 2);
+		put_err("minishell: syntax error near unexpected token `");
+		put_err(arg->error->token);
+		put_err("'\n");
 	}
 	arg->error->code = EXIT_STATUS_SYNTAX_ERROR;
 }
