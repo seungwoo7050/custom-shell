@@ -4,7 +4,7 @@ void	error_quote(t_arg *arg)
 {
 	write (2, "minishell: syntax error either unclosed quote ", 46);
 	write (2, "or parenthesis found\n", 21);
-	arg->error->code = 2;
+	arg->error->code = EXIT_STATUS_SYNTAX_ERROR;
 	if (arg->is_subshell)
 		exit(arg->error->code);
 }
@@ -29,7 +29,7 @@ void	error_syntax(t_arg *arg)
 		write(2, arg->error->token, ft_strlen(arg->error->token));
 		write(2, "\'\n", 2);
 	}
-	arg->error->code = 2;
+	arg->error->code = EXIT_STATUS_SYNTAX_ERROR;
 }
 
 void	error_handler(t_arg *arg, int type)

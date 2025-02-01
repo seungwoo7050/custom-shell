@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	g_recived_signal;
+int	g_received_signal;
 
 int	is_history(char *line)
 {
@@ -42,8 +42,10 @@ void	free_read_line(t_arg *arg)
 	arg->line.data = NULL;
 	free(arg->line.info);
 	arg->line.info = NULL;
-	if (arg->error->code == 2 || arg->error->code == 130 \
-	|| arg->error->code == 131 || arg->error->code == 1)
+	if (arg->error->code == EXIT_STATUS_SYNTAX_ERROR \
+        || arg->error->code == EXIT_STATUS_SIGINT \
+        || arg->error->code == EXIT_STATUS_SIGQUIT \
+        || arg->error->code == EXIT_STATUS_GENERAL_ERROR)
 		free_node(arg->ast_head);
 	else
 		free_ast(arg->ast_head);
@@ -53,7 +55,7 @@ void	free_read_line(t_arg *arg)
 	arg->error->token = NULL;
 	arg->last_exit_status = arg->error->code;
 	arg->error->code = 0;
-	g_recived_signal = 3;
+	g_received_signal = RECEIVED_SIGNAL_DEFAULT;
 	if (arg->is_subshell)
 		exit (0);
 }
@@ -99,7 +101,7 @@ int	main(int argc, char **argv, char **envp)
 			arg.line.data = readline(get_ps(&arg, 1));
 			if (!arg.line.data)
 				terminal_default(&arg);
-			if (g_recived_signal == 2)
+			if (g_received_signal == SIGINT)
 				arg.last_exit_status = 1;
 			if (is_history(arg.line.data))
 				add_history(arg.line.data);

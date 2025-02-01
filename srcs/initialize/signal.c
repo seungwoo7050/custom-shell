@@ -15,10 +15,10 @@ void	sig_handler(int signum)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_recived_signal = signum;
+		g_received_signal = signum;
 	}
 	else if (signum == SIGQUIT)
-		g_recived_signal = signum;
+		g_received_signal = signum;
 }
 
 void	sig_handler_heredoc(int signum)
@@ -28,17 +28,17 @@ void	sig_handler_heredoc(int signum)
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		g_recived_signal = signum;
+		g_received_signal = signum;
 	}
 }
 
 void	sig_handler_waiting(int signum)
 {
 	(void)signum;
-	if (g_recived_signal == SIGINT)
-		exit (130);
-	else if (g_recived_signal == SIGQUIT)
-		exit (131);
+	if (g_received_signal == SIGINT)
+		exit (EXIT_STATUS_SIGINT);
+	else if (g_received_signal == SIGQUIT)
+		exit (EXIT_STATUS_SIGQUIT);
 }
 
 void	sig_handler_exec(int signum)
@@ -48,13 +48,13 @@ void	sig_handler_exec(int signum)
 		rl_on_new_line();
 		printf("Quit: 3\n");
 		rl_replace_line("", 0);
-		g_recived_signal = signum;
+		g_received_signal = signum;
 	}
 	else if (signum == SIGINT)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		g_recived_signal = signum;
+		g_received_signal = signum;
 	}
 }

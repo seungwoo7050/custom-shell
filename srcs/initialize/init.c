@@ -93,7 +93,7 @@ void	terminal_init(t_arg *arg, char **envp, char **argv)
 		exit (1);
 	}
 	ft_memset(arg, 0, sizeof(t_arg));
-	g_recived_signal = 3;
+	g_received_signal = RECEIVED_SIGNAL_DEFAULT;
 	tcgetattr(STDOUT_FILENO, &arg->term);
 	arg->original_term = arg->term;
 	arg->term.c_lflag &= ~(ECHOCTL);

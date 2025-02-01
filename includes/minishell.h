@@ -22,8 +22,8 @@
 // libft
 # include "../libft/libft.h"
 
-// the signal number recieved
-extern int	g_recived_signal;
+// the signal number received
+extern int	g_received_signal;
 
 typedef struct s_line
 {
@@ -109,6 +109,15 @@ typedef struct s_arg
 # define E_CD_NO_FILE		-8
 # define E_TOO_MANY_ARG		-9
 # define E_UNCLOSED_QUOTES	-10
+
+// exit status
+# define EXIT_STATUS_GENERAL_ERROR  1
+# define EXIT_STATUS_SYNTAX_ERROR   2
+# define EXIT_STATUS_SIGINT         130
+# define EXIT_STATUS_SIGQUIT        131
+
+// signal defaults
+# define RECEIVED_SIGNAL_DEFAULT	SIGQUIT
 
 //syntax flag
 # define S_OPERATOR			0
