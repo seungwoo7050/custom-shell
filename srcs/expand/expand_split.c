@@ -46,7 +46,7 @@ void	split_allocate(t_node *node, int words)
 		while (++j < i)
 			node->data[j] = node->line->data[j];
 		node->data[j] = '\0';
-		node->data = modified_strtrim(node->data, " ");
+		node->data = modified_strtrim_free(node->data, " ");
 	}
 	alloc_expanded(node, argv, i);
 }

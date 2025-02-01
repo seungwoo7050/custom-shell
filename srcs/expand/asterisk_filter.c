@@ -13,9 +13,9 @@ void	filtered_node(struct dirent *file, t_node **result, char *pwd, \
 		return ;
 	}
 	tmp = last_node(*result);
-	tmp_pwd = modified_strjoin(pwd, ft_strjoin("/", file->d_name), 0);
+	tmp_pwd = modified_strjoin_free(pwd, ft_strjoin("/", file->d_name), 0);
 	if (line[1][0] != '\0')
-		tmp_pwd = modified_strjoin(tmp_pwd, "/", 1);
+		tmp_pwd = modified_strjoin_free(tmp_pwd, "/", 1);
 	if (tmp == NULL)
 		*result = create_node(ft_strdup(tmp_pwd), NULL, L_SIMPLE_COMMAND);
 	else
@@ -35,9 +35,9 @@ void	asterisk_recursive(t_node **result, char **line, char *name, int *depth)
 		i = ft_strlen(name);
 		while (i >= 0 && name[i] != '/')
 			i--;
-		pwd = modified_strjoin(ft_substr(name, 0, i), "/", 1);
-		filename = modified_substr(name, i + 1, ft_strlen(name) - i - 1);
-		pwd = modified_strjoin(pwd, filename, 2);
+		pwd = modified_strjoin_free(ft_substr(name, 0, i), "/", 1);
+		filename = modified_substr_free(name, i + 1, ft_strlen(name) - i - 1);
+		pwd = modified_strjoin_free(pwd, filename, 2);
 		asterisk_subdir(result, line, pwd, depth);
 	}
 	else
@@ -80,7 +80,7 @@ void	asterisk_subdir(t_node **result, char **line, char *pwd, int *depth)
 		else if (is_file_or_dir(line, depth, is_hidden, file) == 1)
 			filtered_node(file, result, ft_strdup(pwd), line);
 		else if (is_file_or_dir(line, depth, is_hidden, file) == 2)
-			asterisk_recursive(result, line, modified_strjoin(pwd, \
+			asterisk_recursive(result, line, modified_strjoin_free(pwd, \
 			ft_strjoin("/", file->d_name), 2), depth);
 	}
 	free(pwd);
@@ -107,10 +107,10 @@ t_node	**filter_asterisk(char **line)
 	tmp = *result;
 	while (tmp)
 	{
-		tmp->data = modified_substr(tmp->data, ft_strlen(line[0]) + 1, \
+		tmp->data = modified_substr_free(tmp->data, ft_strlen(line[0]) + 1, \
 		ft_strlen(tmp->data) - ft_strlen(line[0]) - 1);
 		if (is_current_pwd != 1)
-			tmp->data = modified_strjoin(line[0], tmp->data, 2);
+			tmp->data = modified_strjoin_free(line[0], tmp->data, 2);
 		tmp = tmp->right;
 	}
 	return (result);

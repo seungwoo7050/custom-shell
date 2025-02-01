@@ -7,11 +7,11 @@ char	*find_heredoc_prefix(t_arg *arg, int *i, int *row)
 
 	k = 0;
 	tmp = NULL;
-	tmp = modified_strjoin("\001\033[", ft_itoa(*row), 2);
-	tmp = modified_strjoin(tmp, "A\002", 1);
+	tmp = modified_strjoin_free("\001\033[", ft_itoa(*row), 2);
+	tmp = modified_strjoin_free(tmp, "A\002", 1);
 	while (k < *i + 1)
 	{
-		tmp = modified_strjoin(tmp, ft_strdup(get_ps(arg, 2)), 0);
+		tmp = modified_strjoin_free(tmp, ft_strdup(get_ps(arg, 2)), 0);
 		k++;
 	}
 	return (tmp);

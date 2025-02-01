@@ -60,15 +60,15 @@ void	append_subshell(t_node *root)
 	str = ft_strdup("");
 	while (red[++i])
 	{
-		str = modified_strjoin(str, red[i]->data, 1);
-		str = modified_strjoin(str, red[i]->argv[0], 1);
+		str = modified_strjoin_free(str, red[i]->data, 1);
+		str = modified_strjoin_free(str, red[i]->argv[0], 1);
 	}
-	str = modified_strjoin(ft_substr(root->data, 0, 1), str, 0);
-	str = modified_strjoin(str, " ", 1);
-	str = modified_strjoin(str, ft_substr(root->data, 1, \
+	str = modified_strjoin_free(ft_substr(root->data, 0, 1), str, 0);
+	str = modified_strjoin_free(str, " ", 1);
+	str = modified_strjoin_free(str, ft_substr(root->data, 1, \
 	ft_strlen(root->data) - 1), 0);
 	free(root->data);
-	root->data = modified_strdup(str);
+	root->data = modified_strdup_free(str);
 	sort_free(red);
 }
 

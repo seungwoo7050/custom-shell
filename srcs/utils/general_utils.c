@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char	*modified_strjoin(char *s1, char *s2, int flag)
+char	*modified_strjoin_free(char *s1, char *s2, int flag)
 {
 	char	*str;
 	int		i;
@@ -43,7 +43,7 @@ char	*modified_strjoin(char *s1, char *s2, int flag)
 	return (str);
 }
 
-char	*modified_substr(char *s, int start, int len)
+char	*modified_substr_free(char *s, int start, int len)
 {
 	char	*str;
 	int		i;
@@ -66,7 +66,7 @@ char	*modified_substr(char *s, int start, int len)
 	return (str);
 }
 
-char	*modified_strtrim(char *s1, char const *set)
+char	*modified_strtrim_free(char *s1, char const *set)
 {
 	int		start;
 	int		end;
@@ -93,7 +93,7 @@ char	*modified_strtrim(char *s1, char const *set)
 	return (str);
 }
 
-char	*modified_strdup(char *s)
+char	*modified_strdup_free(char *s)
 {
 	char	*new_s;
 	int		i;

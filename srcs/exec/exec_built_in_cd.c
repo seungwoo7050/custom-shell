@@ -61,11 +61,11 @@ void	built_in_cd_set_pwd_arg(char *tmp, t_arg *arg, t_node *node)
 	if (!tmp)
 	{
 		str = ft_strdup("cd: error retrieving current directory: getcwd: ");
-		str = modified_strjoin(str, "cannot access parent directories", 1);
+		str = modified_strjoin_free(str, "cannot access parent directories", 1);
 		exec_perror(str, 0);
 		free (str);
-		arg->pwd = modified_strjoin(arg->pwd, "/", 1);
-		arg->pwd = modified_strjoin(arg->pwd, node->argv[1], 1);
+		arg->pwd = modified_strjoin_free(arg->pwd, "/", 1);
+		arg->pwd = modified_strjoin_free(arg->pwd, node->argv[1], 1);
 	}
 	else
 	{

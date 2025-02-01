@@ -7,7 +7,7 @@ char	*set_heredoc_filename(int *i)
 
 	while (1)
 	{
-		filename = modified_strjoin(".", ft_itoa(*i), 2);
+		filename = modified_strjoin_free(".", ft_itoa(*i), 2);
 		fd = open(filename, O_RDONLY);
 		if (fd == -1)
 		{

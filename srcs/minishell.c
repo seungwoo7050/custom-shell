@@ -29,10 +29,10 @@ void	set_minishell_path(t_arg *arg, char *path)
 	{
 		tmp2 = getcwd(NULL, 0);
 		if (tmp1[0] == '.' && tmp1[1] == '/')
-			tmp3 = modified_strtrim(tmp1, ".");
+			tmp3 = modified_strtrim_free(tmp1, ".");
 		else
-			tmp3 = modified_strjoin(ft_strdup("/"), tmp1, 0);
-		arg->minishell_path = modified_strjoin(tmp2, tmp3, 0);
+			tmp3 = modified_strjoin_free(ft_strdup("/"), tmp1, 0);
+		arg->minishell_path = modified_strjoin_free(tmp2, tmp3, 0);
 	}
 }
 
@@ -105,7 +105,7 @@ int	main(int argc, char **argv, char **envp)
 				arg.last_exit_status = 1;
 			if (is_history(arg.line.data))
 				add_history(arg.line.data);
-			arg.line.data = modified_strtrim(arg.line.data, " \t\n");
+			arg.line.data = modified_strtrim_free(arg.line.data, " \t\n");
 		}
 		else
 			arg.line.data = ft_strdup(argv[2]);

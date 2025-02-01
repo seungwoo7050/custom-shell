@@ -83,7 +83,7 @@ char	**make_envp(t_env *envp_head)
 	while (cur)
 	{
 		envp[i] = ft_strjoin(cur->key, "=");
-		envp[i] = modified_strjoin(envp[i], cur->value, 1);
+		envp[i] = modified_strjoin_free(envp[i], cur->value, 1);
 		cur = cur->next;
 		i++;
 	}

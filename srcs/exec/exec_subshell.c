@@ -30,7 +30,7 @@ void	set_subshell(t_node *node, t_arg *arg)
 {
 	int		i;
 
-	node->data = modified_strtrim(node->data, " ()");
+	node->data = modified_strtrim_free(node->data, " ()");
 	i = -1;
 	while (node->argv[++i])
 		free(node->argv[i]);

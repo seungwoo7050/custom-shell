@@ -97,7 +97,7 @@ void	read_heredoc_file(int fd, char **str, char *buf)
 		else
 		{
 			buf[byte] = '\0';
-			*str = modified_strjoin(*str, buf, 1);
+			*str = modified_strjoin_free(*str, buf, 1);
 		}
 	}
 }
