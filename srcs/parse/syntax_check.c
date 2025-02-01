@@ -70,7 +70,7 @@ int	check_syntax_token(t_arg *arg, int flag)
 			return (0);
 		}
 		else
-			error_handler(arg, E_WRONG_SYNTAX);
+			handle_error(arg, E_WRONG_SYNTAX);
 		return (1);
 	}
 	return (0);

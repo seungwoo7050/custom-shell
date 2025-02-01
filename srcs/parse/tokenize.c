@@ -100,5 +100,5 @@ void	tokenize(t_line *line, t_arg *arg)
 	}
 	line->info[i] = '\0';
 	if ((quote != 0 || subshell == -1 || subshell == 1) && arg)
-		error_handler(arg, E_UNCLOSED_QUOTES);
+		handle_error(arg, E_UNCLOSED_QUOTES);
 }
