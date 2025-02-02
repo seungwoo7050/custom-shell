@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+ * Syntax checks must always store a non-NULL duplicated token in error->token
+ * when reporting an error. Use ft_strdup("") for ambiguous redirects.
+ */
 int	check_double_command(int *found_type, int index)
 {
 	int	another;

@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+/*
+ * When a syntax error is detected, error->token must always be set to a
+ * non-NULL duplicated string. The empty string explicitly signals an
+ * ambiguous redirect so error handling can stay consistent.
+ */
 void	check_logical_operator(t_node *node, t_error *error, int *found_type)
 {
 	t_node	*right;
