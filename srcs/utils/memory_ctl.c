@@ -33,12 +33,13 @@ void	free_arg(t_arg *arg)
 		free(arg->minishell_path);
 }
 
-void	free_ast(t_node *node)
+static void	free_node_recursive(t_node *node, int free_left)
 {
 	if (!node)
 		return ;
-	free_ast(node->right);
-	free_ast(node->left);
+	free_node_recursive(node->right, free_left);
+	if (free_left)
+		free_node_recursive(node->left, free_left);
 	if (node->data && node->type != L_PIPELINE && \
 	node->type != L_LOGICAL_OPERATOR)
 		free(node->data);
@@ -62,31 +63,9 @@ void	free_ast(t_node *node)
 	node = NULL;
 }
 
-void	free_node(t_node *node)
+void	free_ast(t_node *node, int free_left)
 {
-	if (!node)
-		return ;
-	free_node(node->right);
-	if (node->data && node->type != L_PIPELINE && \
-	node->type != L_LOGICAL_OPERATOR)
-		free(node->data);
-	if (node->line)
-	{
-		if (node->line->data)
-			free(node->line->data);
-		if (node->line->info)
-			free(node->line->info);
-		free(node->line);
-	}
-	if (node->argv)
-		free_split(node->argv);
-	if (node->filename != NULL)
-	{
-		unlink(node->filename);
-		free(node->filename);
-		node->filename = NULL;
-	}
-	free(node);
+	free_node_recursive(node, free_left);
 }
 
 void	free_split(char **split)

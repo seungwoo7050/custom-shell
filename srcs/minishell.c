@@ -46,9 +46,9 @@ void	free_read_line(t_arg *arg)
         || arg->error->code == EXIT_STATUS_SIGINT \
         || arg->error->code == EXIT_STATUS_SIGQUIT \
         || arg->error->code == EXIT_STATUS_GENERAL_ERROR)
-		free_node(arg->ast_head);
+		free_ast(arg->ast_head, 0);
 	else
-		free_ast(arg->ast_head);
+		free_ast(arg->ast_head, 1);
 	arg->ast_head = NULL;
 	if (arg->error->token)
 		free(arg->error->token);

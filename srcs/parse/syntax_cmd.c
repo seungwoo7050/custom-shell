@@ -37,12 +37,12 @@ int	syntax_subshell(t_node *node, t_arg *arg)
 	{
 		free(tmp.line.data);
 		free(tmp.line.info);
-		free_node(tmp.ast_head);
+		free_ast(tmp.ast_head, 0);
 		return (1);
 	}
 	free(tmp.line.data);
 	free(tmp.line.info);
-	free_node(tmp.ast_head);
+	free_ast(tmp.ast_head, 0);
 	return (0);
 }
 

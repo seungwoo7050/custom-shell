@@ -144,10 +144,9 @@ t_node	*create_ast_node(t_line *line, int start, int end, int type);
 void	handle_error(t_arg *arg, int type);
 void	*ft_malloc(int size);
 void	free_split(char **ptr);
-void	free_node(t_node *node);
 void	free_env(t_env *env);
 void	free_arg(t_arg *arg);
-void	free_ast(t_node *node);
+void	free_ast(t_node *node, int free_left);
 void	free_line(t_line *line);
 
 // String Manipulation
