@@ -8,13 +8,15 @@ SRCS			= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 				ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
 				ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c ft_strstr.c
 
-OBJS			= $(SRCS:.c=.o)
+OBJ_DIR			= obj
+
+OBJS			= $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 BONUS 			= ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c \
 				ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c \
 				ft_lstmap_bonus.c
 
-BONUS_OBJS		= $(BONUS:.c=.o)
+BONUS_OBJS		= $(patsubst %.c,$(OBJ_DIR)/%.o,$(BONUS))
 
 CC				=	cc
 
@@ -31,7 +33,8 @@ else
 OBJ_FLAG = $(OBJS)
 endif
 
-%.o: %.c
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
@@ -40,7 +43,7 @@ $(NAME): $(OBJ_FLAG)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJ_FLAG)
 
 clean:
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)

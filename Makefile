@@ -18,7 +18,9 @@ SRCS =	$(addprefix $(SRC_DIR), minishell.c \
 								exec/exec_built_in_env.c exec/exec_built_in_env_utils.c exec/exec_built_in_export.c \
 								exec/exec_heredoc.c exec/exec_heredoc_file.c)
 
-OBJS =	$(SRCS:.c=.o)
+OBJ_DIR = ./obj
+
+OBJS = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)/%.o,$(SRCS))
 HEADER = includes/minishell.h
 MAKEFILE = Makefile
 NAME = minishell
@@ -26,8 +28,9 @@ LIBFT = ./libft/libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./includes/
 
-%.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+$(OBJ_DIR)/%.o: $(SRC_DIR)%.c $(HEADER)
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $^ -lreadline -lncurses -o $(NAME)
@@ -40,10 +43,12 @@ all: $(NAME)
 re: fclean all
 
 clean:
-	rm -f $(OBJS)
-	@$(MAKE) -C ./libft fclean
+	rm -rf $(OBJ_DIR)
+	@$(MAKE) -C ./libft clean
 
-fclean: clean
+fclean:
+	rm -rf $(OBJ_DIR)
 	rm -f $(NAME)
+	@$(MAKE) -C ./libft fclean
 
 .PHONY: all clean fclean re libft
