@@ -31,10 +31,10 @@ void	set_minishell_path(t_arg *arg, char *path)
 		if (tmp1[0] == '.' && tmp1[1] == '/')
 			tmp3 = modified_strtrim_free(tmp1, ".");
 		else
-			tmp3 = modified_strjoin_free(ft_strdup("/"), tmp1, 0);
-		arg->minishell_path = modified_strjoin_free(tmp2, tmp3, 0);
+			tmp3 = join_path(ft_strdup("/"), tmp1, 0);
+		arg->minishell_path = join_path(tmp2, tmp3, 0);
 	}
-}
+} 
 
 void	free_read_line(t_arg *arg)
 {

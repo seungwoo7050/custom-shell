@@ -43,6 +43,57 @@ char	*modified_strjoin_free(char *s1, char *s2, int flag)
 	return (str);
 }
 
+char	*join_path(char *base, char *suffix, int ownership)
+{
+	char	*path;
+	char	*suffix_start;
+	int		base_len;
+	int		suffix_len;
+	int		need_slash;
+
+	if (!base && !suffix)
+		return (NULL);
+	suffix_start = suffix;
+	base_len = 0;
+	suffix_len = 0;
+	if (base)
+		base_len = ft_strlen(base);
+	if (suffix)
+		suffix_len = ft_strlen(suffix);
+	need_slash = 0;
+	if (base_len && suffix_len)
+	{
+		if (base[base_len - 1] != '/' && suffix[0] != '/')
+			need_slash = 1;
+		else if (base[base_len - 1] == '/' && suffix[0] == '/')
+		{
+			suffix++;
+			suffix_len--;
+		}
+	}
+	path = ft_malloc(sizeof(char) * (base_len + suffix_len + need_slash + 1));
+	if (base_len)
+		ft_strlcpy(path, base, base_len + 1);
+	else
+		path[0] = '\0';
+	if (need_slash)
+		path[base_len++] = '/';
+	if (suffix_len)
+		ft_strlcpy(path + base_len, suffix, suffix_len + 1);
+	else
+		path[base_len] = '\0';
+	if (ownership == 0)
+	{
+		free(base);
+		free(suffix_start);
+	}
+	else if (ownership == 1)
+		free(base);
+	else if (ownership == 2)
+		free(suffix_start);
+	return (path);
+}
+
 char	*modified_substr_free(char *s, int start, int len)
 {
 	char	*str;

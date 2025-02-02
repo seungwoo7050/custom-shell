@@ -157,10 +157,15 @@ void	free_line(t_line *line);
 //   flag == 0: free both s1 and s2
 //   flag == 1: free s1 only
 //   flag == 2: free s2 only
+// - join_path frees inputs based on the ownership flag:
+//   ownership == 0: free both base and suffix
+//   ownership == 1: free base only
+//   ownership == 2: free suffix only
 char	*modified_strtrim_free(char *s1, char const *set);
 char	*modified_strdup_free(char *s1);
 char	*modified_substr_free(char *s, int start, int len);
 char	*modified_strjoin_free(char *s1, char *s2, int flag);
+char	*join_path(char *base, char *suffix, int ownership);
 
 // Environment Variables
 void	set_env(t_env *env_head, char *key, char *value);
